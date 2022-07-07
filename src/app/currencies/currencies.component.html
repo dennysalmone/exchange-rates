@@ -1,0 +1,6 @@
+<p>currencies works!</p>
+<div *ngIf="currencyList">
+    <ng-container *ngFor="let currency of currencyList.rates">
+        {{currency.ccu}} - {{currency.price}} <br>
+    </ng-container>
+</div>
