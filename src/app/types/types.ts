@@ -18,6 +18,5 @@ export type CurrencyList = {
 export type Rates = {
     ccu: string,
     price: number
+    important: boolean
 }
-
-export type ImportantCcu = string[];

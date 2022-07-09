@@ -1,0 +1,10 @@
+<div class="backdrop-modal-window">
+    <div class="modal-window">
+        <ng-container *ngFor="let rate of data.currencyList.rates">
+            <span class="value" [ngClass]="getClassOf(rate)" (click)="changeStatus(rate)">
+                {{rate.ccu}}
+            </span>
+        </ng-container>
+        <button (click)="close()" class="button-close">Close</button>
+    </div>
+</div>

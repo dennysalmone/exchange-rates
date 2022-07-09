@@ -7,8 +7,9 @@ import { MainComponent } from './main/main.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CurrenciesComponent } from './currencies/currencies.component';
 import { TaxCalculatorComponent } from './tax-calculator/tax-calculator.component';
+import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTableModule } from '@angular/material/table';
+import { ModalAddCcuComponent } from './modal-add-ccu/modal-add-ccu.component';
 
 @NgModule({
   declarations: [
@@ -16,16 +17,16 @@ import { MatTableModule } from '@angular/material/table';
     MainComponent,
     NavbarComponent,
     CurrenciesComponent,
-    TaxCalculatorComponent
+    TaxCalculatorComponent,
+    ModalAddCcuComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule,
-    MatTableModule
+    MatDialogModule,
+    BrowserAnimationsModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,53 @@
+.backdrop-modal-window {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.25);
+    top: 0;
+    left: 0;
+    padding: 0px !important;
+}
+
+.modal-window {
+    padding: 1rem;
+    background-color: aliceblue;
+    border-radius: 5px;
+    margin-top: 12%;
+    position: absolute;
+    width: 50vw;
+    left: 50%;
+    transform: translate(-50%, 0);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.close-btn {
+    margin-top: 5px;
+}
+
+@media (max-device-width: 992px) {
+    .modal-window {
+        max-width: 80%;
+        min-width: 80%;
+    }
+}
+
+@media (max-device-width: 500px) {
+    .modal-window {
+        max-width: 95%;
+        min-width: 95%;
+    }
+}
+
+.value {
+    margin: 4px;
+    padding: 4px;
+    flex: 1;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.active {
+    background-color: #f34a4a7c;
+}

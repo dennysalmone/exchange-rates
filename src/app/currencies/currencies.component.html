@@ -1,8 +1,12 @@
 <div *ngIf="currencyList">
     <table>
         <tr><th>Currency</th><th>Rate</th></tr>
-        <ng-container *ngFor="let currency of importantList.rates">
-            <tr><td class="table-block">{{currency.ccu}}</td><input (change)="onChangeEvent($event, currency)" [value]='+(currency.price * multIndex).toFixed(5)' class="table-block"></tr>
+        <ng-container *ngFor="let currency of currencyList.rates">
+            <ng-container *ngIf="currency.important">
+                <tr><td class="table-block">{{currency.ccu}}</td>
+                <input type="number" (change)="onChangeEvent($event, currency)" [value]='+((currency.price * multIndex).toFixed(5))' class="table-block"></tr>
+            </ng-container>
         </ng-container>
+        <tr><td (click)="openModal()" class="table-block">Show All</td></tr>
     </table>
 </div>

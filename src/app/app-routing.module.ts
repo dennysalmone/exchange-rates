@@ -9,7 +9,8 @@ const routes: Routes = [
       path: "", component: MainComponent, children: [
           {path: "currencyrates", component: CurrenciesComponent},
           {path: "taxcalculator", component: TaxCalculatorComponent},
-          // {path: "", redirectTo: "currencyrates", pathMatch: 'full'},           
+          {path: "", redirectTo: "currencyrates", pathMatch: 'full'},     
+          {path: "**", redirectTo: "currencyrates", pathMatch: 'full'},     
       ]
   }
 ]

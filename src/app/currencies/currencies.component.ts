@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CurrencyService } from '../services/currency.service';
-import { CurrencyGeneric, CurrencyList, ImportantCcu, Rates } from '../types/types';
+import { CurrencyGeneric, CurrencyList, Rates } from '../types/types';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ModalAddCcuComponent } from '../modal-add-ccu/modal-add-ccu.component';
 
 @Component({
   selector: 'app-currencies',
@@ -10,24 +12,34 @@ import { CurrencyGeneric, CurrencyList, ImportantCcu, Rates } from '../types/typ
 })
 export class CurrenciesComponent implements OnInit {
 
-  constructor(private currencyService: CurrencyService) { }
+  constructor(private currencyService: CurrencyService, private dialog: MatDialog) { }
+  dialogSub!: Subscription;
   currencyList!: CurrencyList; // not use yet, full list of currencies
-  importantList!: CurrencyList;
   modelList!: CurrencyList; // use in calculations
   aSub!: Subscription;
   multIndex: number = 1;
-  importantCcu: ImportantCcu = ['USD', 'GBP', 'JPY', 'CNY', 'CHF', 'UAH', 'EUR', 'BTC', 'XAU']
+  importantCcu: string[] = ['USD', 'GBP', 'JPY', 'CNY', 'CHF', 'UAH', 'EUR', 'BTC', 'XAU']
 
   ngOnInit(): void {
     this.getCurrencyList()
+    this.importantCcu = this.currencyService.getCcuFromLocalStorage()
+  }
+
+  openModal(): void {
+    this.dialogSub = this.currencyService.addCcu$.subscribe(
+      (data) => {
+        console.log(data)
+      }
+    )
+  this.dialog.open(ModalAddCcuComponent, { data: { importantCcu: this.importantCcu, currencyList: this.currencyList } } )
   }
 
   getCurrencyList(): void {
     this.aSub = this.currencyService.getCurrencyList().subscribe({
       next: (v: CurrencyGeneric) => {
         this.currencyList = this.setCurrencyList(v)
-        this.importantList = this.foundImportantCurrencyes(this.currencyList, this.importantCcu)
-        this.modelList = this.importantList
+        this.modelList = Object.assign({}, this.currencyList );
+        this.currencyList = this.checkForImportance(this.currencyList, this.importantCcu)
       },
       error: (e) => {
         console.log(e)
@@ -42,25 +54,22 @@ export class CurrenciesComponent implements OnInit {
       rates: []
     }
     Object.keys(v.rates).forEach(key => {
-      let rate = {ccu: key, price: v.rates[key]}
+      let rate = {ccu: key, price: v.rates[key], important: false}
       list.rates.push(rate)
     });
     return list;
   }
 
-  foundImportantCurrencyes (list: CurrencyList, importantCcu: ImportantCcu): CurrencyList {
-    let importantRates = []
+  checkForImportance (list: CurrencyList, importantCcu: string[]): CurrencyList {
     for(let i=0; i<importantCcu.length; i++) {
       for(let k=0; k<list.rates.length; k++) {
-        let cur = importantCcu[i] // USD fyi
+        let cur = importantCcu[i] // 'USD', 'BTC', 'UAH' etc
         if (list.rates[k].ccu === cur) {
-          importantRates.push(list.rates[k])
+          list.rates[k].important = true;
           break;
         }
       }
     }
-    list.rates = importantRates;
-    console.log(list);
     return list;
   }
 
@@ -69,10 +78,6 @@ export class CurrenciesComponent implements OnInit {
     let ccuFromModel = this.foundCurrencyInModelList(currency.ccu)
     if(!ccuFromModel) {return}
     this.multIndex = (value / (ccuFromModel as Rates).price)
-    // this.importantList.rates.forEach(item => Math.round(item.price * 100) / 100)
-    // for(let i=0; i<this.importantList.rates.length; i++) {
-    //   this.importantList.rates[i].price = Math.round(this.importantList.rates[i].price * 100) / 100
-    // }
   }
 
   foundCurrencyInModelList (ccu: string): Rates | null {
