@@ -3,7 +3,7 @@
         <tr><th>Currency</th><th>Rate</th></tr>
         <ng-container *ngFor="let currency of currencyList.rates">
             <ng-container *ngIf="currency.important">
-                <tr><td class="table-block">{{currency.ccu}}</td>
+                <tr><td class="table-block">{{currency.fullName}}</td>
                 <input type="number" (change)="onChangeEvent($event, currency)" [value]='+((currency.price * multIndex).toFixed(5))' class="table-block"></tr>
             </ng-container>
         </ng-container>

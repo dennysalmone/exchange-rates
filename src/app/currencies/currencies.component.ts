@@ -4,6 +4,7 @@ import { CurrencyService } from '../services/currency.service';
 import { CurrencyGeneric, CurrencyList, Rates } from '../types/types';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ModalAddCcuComponent } from '../modal-add-ccu/modal-add-ccu.component';
+import { currencyName } from './decipherment/currencies';
 
 @Component({
   selector: 'app-currencies',
@@ -14,11 +15,11 @@ export class CurrenciesComponent implements OnInit {
 
   constructor(private currencyService: CurrencyService, private dialog: MatDialog) { }
   dialogSub!: Subscription;
-  currencyList!: CurrencyList; // not use yet, full list of currencies
+  currencyList!: CurrencyList;
   modelList!: CurrencyList; // use in calculations
   aSub!: Subscription;
   multIndex: number = 1;
-  importantCcu: string[] = ['USD', 'GBP', 'JPY', 'CNY', 'CHF', 'UAH', 'EUR', 'BTC', 'XAU']
+  importantCcu: string[] = ['USD', 'EUR']
 
   ngOnInit(): void {
     this.getCurrencyList()
@@ -47,16 +48,21 @@ export class CurrenciesComponent implements OnInit {
     })
   }
 
-  setCurrencyList(v: any): CurrencyList {
+  setCurrencyList(v: CurrencyGeneric): CurrencyList {
     let list: CurrencyList = {
       base: v.base,
       date: v.date,
       rates: []
     }
     Object.keys(v.rates).forEach(key => {
-      let rate = {ccu: key, price: v.rates[key], important: false}
+      let index = currencyName.findIndex(el => el.key === key.toLowerCase())
+      if (index === -1) {
+        console.log(key)
+      }
+      let rate = {ccu: key, price: v.rates[key], important: false, fullName: currencyName[index]?.val || key}
       list.rates.push(rate)
     });
+    console.log(list)
     return list;
   }
 

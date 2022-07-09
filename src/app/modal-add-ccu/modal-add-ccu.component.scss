@@ -10,25 +10,35 @@
 
 .modal-window {
     padding: 1rem;
-    background-color: aliceblue;
+    background-color: rgba(240, 248, 255, 0.90);
     border-radius: 5px;
-    margin-top: 12%;
+    margin-top: 6%;
     position: absolute;
-    width: 50vw;
+    width: 80vw;
     left: 50%;
     transform: translate(-50%, 0);
+
+}
+
+.overlay {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
 }
 
 .close-btn {
     margin-top: 5px;
 }
 
+.full-name {
+    font-size: 2px;
+}
+
 @media (max-device-width: 992px) {
     .modal-window {
-        max-width: 80%;
-        min-width: 80%;
+        max-width: 85%;
+        min-width: 85%;
     }
 }
 
@@ -43,11 +53,30 @@
     margin: 4px;
     padding: 4px;
     flex: 1;
+    text-align: center;
     background-color: rgba(0, 0, 0, 0.05);
     border-radius: 4px;
     cursor: pointer;
+    max-width: 80px;
 }
 
 .active {
-    background-color: #f34a4a7c;
+    background-color: #0d6dfd7e;
+}
+
+.button-close {
+    max-width: 400px;
+    cursor: pointer;
+    outline: 0;
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    font-size: 16px;
+    border-radius: .25rem;
 }

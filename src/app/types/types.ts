@@ -6,7 +6,7 @@ export type CurrencyGeneric = {
     success: boolean
     base: string,
     date: string,
-    rates: object
+    rates: any
 }
 
 export type CurrencyList = {
@@ -17,6 +17,7 @@ export type CurrencyList = {
 
 export type Rates = {
     ccu: string,
-    price: number
-    important: boolean
+    price: number,
+    important: boolean,
+    fullName: string
 }

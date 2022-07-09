@@ -18,7 +18,6 @@ export class CurrencyService {
   }
 
   addCcuToLocalStorage (arg: any): void {
-    console.log(12)
     localStorage.setItem('ImportantCurrency', JSON.stringify(arg));
   }
 
