@@ -12,8 +12,12 @@ export type CurrencyGeneric = {
 export type CurrencyList = {
     base: string,
     date: string,
-    rates: {
-        ccu: string,
-        price: number
-    }[]
+    rates: Rates[]
 }
+
+export type Rates = {
+    ccu: string,
+    price: number
+}
+
+export type ImportantCcu = string[];
