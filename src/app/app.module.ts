@@ -10,6 +10,7 @@ import { TaxCalculatorComponent } from './tax-calculator/tax-calculator.componen
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalAddCcuComponent } from './modal-add-ccu/modal-add-ccu.component';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ModalAddCcuComponent } from './modal-add-ccu/modal-add-ccu.component';
     AppRoutingModule,
     HttpClientModule,
     MatDialogModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatTableModule
   ],
   bootstrap: [AppComponent]
 })

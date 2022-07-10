@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CurrencyService } from '../services/currency.service';
 import { CurrencyGeneric, CurrencyList, Rates } from '../types/types';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ModalAddCcuComponent } from '../modal-add-ccu/modal-add-ccu.component';
-import { currencyName } from './decipherment/currencies';
+import { currencyName } from './database/currencies';
 
 @Component({
   selector: 'app-currencies',
@@ -28,8 +28,8 @@ export class CurrenciesComponent implements OnInit {
 
   openModal(): void {
     this.dialogSub = this.currencyService.addCcu$.subscribe(
-      (data) => {
-        console.log(data)
+      () => {
+        this.currencyService.addCcu$.unsubscribe()
       }
     )
   this.dialog.open(ModalAddCcuComponent, { data: { importantCcu: this.importantCcu, currencyList: this.currencyList } } )

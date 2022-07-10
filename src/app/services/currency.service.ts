@@ -25,7 +25,7 @@ export class CurrencyService {
     if (localStorage.getItem('ImportantCurrency')) {
       return JSON.parse(localStorage.getItem('ImportantCurrency') as string)
     }
-    return ['USD', 'EUR'];
+    return ['USD', 'EUR', 'BTC', 'CAD', 'UAH'];
   }
 
 }
