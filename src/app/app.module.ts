@@ -11,6 +11,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalAddCcuComponent } from './modal-add-ccu/modal-add-ccu.component';
 import { MatTableModule } from '@angular/material/table';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { MatTableModule } from '@angular/material/table';
     HttpClientModule,
     MatDialogModule,
     BrowserAnimationsModule,
-    MatTableModule
+    MatTableModule,
+    ReactiveFormsModule,
+    MatSelectModule
   ],
   bootstrap: [AppComponent]
 })

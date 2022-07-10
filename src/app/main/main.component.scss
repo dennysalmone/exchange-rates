@@ -2,3 +2,18 @@
     margin-left: 65px;
     margin-right: 65px;
 }
+
+
+@media (max-device-width: 992px) {
+    .main-wrapper {
+        margin-left: 25px;
+        margin-right: 25px;
+    }
+}
+
+@media (max-device-width: 500px) {
+    .main-wrapper {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}

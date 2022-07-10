@@ -15,3 +15,19 @@
     font-size: 16px;
     cursor: pointer;
 }
+
+@media (max-device-width: 992px) {
+    .table-block {
+        padding: 2px;
+        border-radius: 2px;
+        font-size: 14px;
+    }
+}
+
+@media (max-device-width: 500px) {
+    .table-block {
+        padding: 1px;
+        border-radius: 1px;
+        font-size: 12px;
+    }
+}

@@ -1,1 +1,23 @@
-<p>tax-calculator works!</p>
+<br>
+<div class="overlay">
+    <form [formGroup]="annualIncome" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+            <mat-label>Province of residence</mat-label>
+            <mat-select required formControlName="provinceResidense">
+                <mat-option *ngFor="let prov of provinces; index as i" [value]="prov">
+                    {{prov}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div class="block">
+            <label for="first-name">Employment income: </label>
+            <input id="first-name" type="number" formControlName="employmentIncome">
+        </div>
+        <div class="block">
+            <label for="last-name">Other income: </label>
+            <input id="last-name" type="number" formControlName="otherIncome">
+        </div>
+        <button class="button-submit" type="submit">Calculate</button>
+      </form>
+</div>
+

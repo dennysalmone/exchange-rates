@@ -4,7 +4,7 @@ import { CurrencyService } from '../services/currency.service';
 import { CurrencyGeneric, CurrencyList, Rates } from '../types/types';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalAddCcuComponent } from '../modal-add-ccu/modal-add-ccu.component';
-import { currencyName } from './database/currencies';
+import { currencyName } from '../database/currencies';
 
 @Component({
   selector: 'app-currencies',

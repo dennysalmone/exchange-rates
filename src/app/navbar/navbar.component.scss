@@ -28,3 +28,13 @@ li a:hover {
   background-color: #F1D3BC;  
   color: black;
 }  
+
+@media (max-device-width: 992px) {
+
+}
+
+@media (max-device-width: 500px) {
+  li a {  
+    font-size:12px;  
+  }  
+}

@@ -1,0 +1,45 @@
+.overlay {
+    top: 20%;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.25);
+    margin: auto;
+    width: 700px;
+    padding: 2px;
+}
+
+.block {
+    background-color: rgba(255, 255, 255, 0.25);
+    margin: 4px;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.button-submit {
+    max-width: 400px;
+    cursor: pointer;
+    outline: 0;
+    color: #fff;
+    background-color: #615049;
+    border-color: #615049;
+    display: inline-block;
+    line-height: 1.5;
+    text-align: center;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    font-size: 16px;
+    border-radius: 4px;
+    margin: 4px;
+    padding: 4px;
+}
+
+input[type=number] {
+    border-radius: 4px;
+    font-size: 16px;
+    border-color: #615049;
+}
+
+.mat-form-field {
+    width: calc(100% - 16px);
+    margin: 4px;
+    padding: 4px;
+}

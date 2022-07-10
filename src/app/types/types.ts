@@ -22,17 +22,13 @@ export type Rates = {
     fullName: string
 }
 
-export enum ProvinceType {
+export enum TaxBacket {
     Province = 'Province',
     Federal = 'Federal',
-    Terretory = 'Terretory',
 }
 
 export type TaxeRatesList = {
     name: string,
-    provStatus: ProvinceType
+    provStatus: TaxBacket
     taxes: any[]
 } []
-
-// export const taxeRates = [
-//     {province: 'Canada', type: 1},
