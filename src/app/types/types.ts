@@ -1,3 +1,5 @@
+import { ProvincesList } from "../database/provinces"
+
 export type CurrencyGeneric = {
     motd: {
         msg: string,
@@ -27,8 +29,19 @@ export enum TaxBacket {
     Federal = 'Federal',
 }
 
+export type IncomeData = {
+    province: ProvincesList, 
+    income: number
+}
+
 export type TaxeRatesList = {
     name: string,
     provStatus: TaxBacket
-    taxes: any[]
-} []
+    taxes: Taxes[]
+}
+
+export type Taxes = {
+    backet: number,
+    rate: number
+}
+

@@ -3,8 +3,9 @@
     border-radius: 4px;
     background-color: rgba(255, 255, 255, 0.25);
     margin: auto;
-    width: 700px;
+    width: 500px;
     padding: 2px;
+    margin-top: 3%;
 }
 
 .block {
@@ -19,8 +20,25 @@
     cursor: pointer;
     outline: 0;
     color: #fff;
-    background-color: #615049;
-    border-color: #615049;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    display: inline-block;
+    line-height: 1.5;
+    text-align: center;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    font-size: 16px;
+    border-radius: 4px;
+    margin: 4px;
+    padding: 4px;
+}
+
+.button-submit-disabled {
+    max-width: 400px;
+    outline: 0;
+    color: #fff;
+    background-color: #5c5c5c;
+    border-color: #5c5c5c;
     display: inline-block;
     line-height: 1.5;
     text-align: center;
@@ -34,12 +52,26 @@
 
 input[type=number] {
     border-radius: 4px;
-    font-size: 16px;
-    border-color: #615049;
+    font-size: 18px;
+    width: 30%;
+    border-color: #615049a1;
 }
 
 .mat-form-field {
     width: calc(100% - 16px);
     margin: 4px;
     padding: 4px;
+}
+.red-text {
+    color: rgb(255, 0, 0);
+    border-radius: 4px;
+    font-size: 10px;
+}
+
+.calculated {
+    margin-top: 2%;
+    background-color: rgba(255, 255, 255, 0.50);
+    padding: 4px;
+    border-radius: 4px;
+    height: 400px;
 }

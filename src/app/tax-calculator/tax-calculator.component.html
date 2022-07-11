@@ -1,23 +1,35 @@
-<br>
 <div class="overlay">
-    <form [formGroup]="annualIncome" (ngSubmit)="onSubmit()">
+    <form [formGroup]="formIncome" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="fill">
             <mat-label>Province of residence</mat-label>
             <mat-select required formControlName="provinceResidense">
-                <mat-option *ngFor="let prov of provinces; index as i" [value]="prov">
-                    {{prov}}
+                <mat-option *ngFor="let prov of provinces | keyvalue" [value]="prov">
+                    {{prov.value}}
                 </mat-option>
             </mat-select>
+            <div *ngIf="formIncome.get('provinceResidense')?.invalid && formIncome.get('provinceResidense')?.touched" class="red-text">Please select a province of residence</div>
         </mat-form-field>
         <div class="block">
-            <label for="first-name">Employment income: </label>
-            <input id="first-name" type="number" formControlName="employmentIncome">
+            <label for="employmentIncome">Main income: </label>
+            <input id="employmentIncome" type="number" formControlName="employmentIncome">
+            <div *ngIf="formIncome.get('employmentIncome')?.invalid && formIncome.get('employmentIncome')?.touched" class="red-text">Please enter a valid value form 1 to 10.000.000</div>
         </div>
         <div class="block">
-            <label for="last-name">Other income: </label>
-            <input id="last-name" type="number" formControlName="otherIncome">
+            <label for="otherIncome">Other income: </label>
+            <input id="otherIncome" type="number" formControlName="otherIncome">
+            <div *ngIf="formIncome.get('otherIncome')?.invalid && formIncome.get('otherIncome')?.touched" class="red-text">Please enter a valid value form 0 to 10.000.000</div>
         </div>
-        <button class="button-submit" type="submit">Calculate</button>
+        <button [ngClass]="formIncome.valid ? 'button-submit' : 'button-submit-disabled'" [disabled]="!formIncome.valid" type="submit">Calculate</button>
       </form>
 </div>
 
+<ng-container *ngIf="calculatedData.isCalculated">
+    <div class="calculated">
+        <div class="block">Total annual income: {{calculatedData.totalIncome}}C$</div>
+        <div class="block">Federal tax: {{calculatedData.fedTax}}C$</div>
+        <div class="block">Provincial tax: {{calculatedData.provTax}}C$</div>
+        <div class="block">Total tax: {{calculatedData.totalTax}}C$</div>
+        <div class="block">Average tax rate: {{calculatedData.averageTaxRate}}%</div>
+        <div class="block">After-tax income: {{calculatedData.afterTaxIncome}}C$</div> 
+    </div>    
+</ng-container>
