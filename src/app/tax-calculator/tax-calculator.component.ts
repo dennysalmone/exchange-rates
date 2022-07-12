@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ProvincesList } from '../database/provinces';
-import { taxeRates } from '../database/taxes';
+import { cppContribution, eiContribution, taxeRates } from '../database/taxes';
 import { IncomeData, TaxBacket, TaxeRatesList } from '../types/types';
 
 @Component({
@@ -18,6 +18,8 @@ export class TaxCalculatorComponent implements OnInit {
   ratesList = taxeRates;
   calculatedData = {
     isCalculated : false,
+    cpp: 0,
+    ei: 0,
     totalIncome: 0,
     totalTax: 0,
     provTax: 0,
@@ -38,23 +40,30 @@ export class TaxCalculatorComponent implements OnInit {
       return;
     }
     const annualIncome: number = this.calculateTotalIncome(this.formIncome.value.employmentIncome, this.formIncome.value.otherIncome);
-    const incomeData: IncomeData = {province: this.formIncome.value.provinceResidense.value, income: annualIncome};
-    let totalFedTax: number = this.findFedTax(incomeData)
-    let totalProvTax: number = this.findProvTax(incomeData)
+    const provinceName = this.formIncome.value.provinceResidense.value
+    let totalCpp: number = this.findCpp(annualIncome)
+    let totalEi: number = this.findEi(annualIncome)
+    let taxBase = annualIncome - (totalCpp + totalEi)
+
+    let totalFedTax: number = this.findFedTax(taxBase)
+    let totalProvTax: number = this.findProvTax(taxBase, provinceName)
     this.calculatedData = {
       isCalculated : true,
-      totalIncome: incomeData.income,
-      totalTax: totalProvTax + totalFedTax,
+      totalIncome: +(annualIncome).toFixed(2),
+      cpp: +(totalCpp).toFixed(2),
+      ei: +(totalEi).toFixed(2),
+      totalTax: +(totalProvTax + totalFedTax).toFixed(2),
       provTax: totalProvTax,
       fedTax: totalFedTax,
-      averageTaxRate: +((totalProvTax + totalFedTax)*100/incomeData.income).toFixed(2),
-      afterTaxIncome: +(incomeData.income - (totalProvTax + totalFedTax)).toFixed(2),
+      averageTaxRate: +((totalProvTax + totalFedTax)*100/annualIncome).toFixed(2),
+      afterTaxIncome: +(annualIncome - (totalProvTax + totalFedTax + totalCpp + totalEi)).toFixed(2),
     }
   }
 
-  findFedTax (incomeData: IncomeData): number {
+
+  findFedTax (incomeData: number): number {
     let scopeFederal: TaxeRatesList = this.ratesList.filter(prov => prov.provStatus === TaxBacket.Federal)[0];
-    let income: number = incomeData.income;
+    let income: number = incomeData - scopeFederal.basicPersonalAmount;
     let fedTaxAcc = 0;
     for (let i=0; i<scopeFederal.taxes.length; i++) {
       if(scopeFederal.taxes[i].backet <= income) {
@@ -65,14 +74,14 @@ export class TaxCalculatorComponent implements OnInit {
     return +fedTaxAcc.toFixed(2);
   }
 
-  findProvTax (incomeData: IncomeData): number {
-    let scopeProv: TaxeRatesList = this.ratesList.filter(prov => prov.name === incomeData.province)[0];
-    let income1: number = incomeData.income;
+  findProvTax (incomeData: number, provinceName: string): number {
+    let scopeProv: TaxeRatesList = this.ratesList.filter(prov => prov.name === provinceName)[0];
+    let income: number = incomeData - scopeProv.basicPersonalAmount;
     let provTaxAcc = 0;
     for (let i=0; i<scopeProv.taxes.length; i++) {
-      if(scopeProv.taxes[i].backet <= income1) {
-        provTaxAcc += ((income1 - scopeProv.taxes[i].backet) * scopeProv.taxes[i].rate)
-        income1 = scopeProv.taxes[i].backet
+      if(scopeProv.taxes[i].backet <= income) {
+        provTaxAcc += ((income - scopeProv.taxes[i].backet) * scopeProv.taxes[i].rate)
+        income = scopeProv.taxes[i].backet
       }
     }
     return +provTaxAcc.toFixed(2);
@@ -80,5 +89,21 @@ export class TaxCalculatorComponent implements OnInit {
 
   calculateTotalIncome(a: number, b: number): number {
     return +(a + b).toFixed(2);
+  }
+
+  findCpp (income: number): number {
+    let contr = income * cppContribution.rate;
+    if(contr >= cppContribution.maxContr) {
+      return cppContribution.maxContr;
+    }
+    return contr;
+  }
+
+  findEi (income: number): number {
+    let contr = income * eiContribution.rate;
+    if(contr >= eiContribution.maxContr) {
+      return eiContribution.maxContr;
+    }
+    return contr;
   }
 }

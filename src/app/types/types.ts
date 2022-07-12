@@ -36,12 +36,18 @@ export type IncomeData = {
 
 export type TaxeRatesList = {
     name: string,
-    provStatus: TaxBacket
+    provStatus: TaxBacket,
+    basicPersonalAmount: number,
     taxes: Taxes[]
 }
 
 export type Taxes = {
     backet: number,
     rate: number
+}
+
+export type Contribution = {
+    maxContr: number,
+    rate: number,
 }
 

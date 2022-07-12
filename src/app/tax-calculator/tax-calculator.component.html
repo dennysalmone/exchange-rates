@@ -25,11 +25,13 @@
 
 <ng-container *ngIf="calculatedData.isCalculated">
     <div class="calculated">
-        <div class="block">Total annual income: {{calculatedData.totalIncome}}C$</div>
-        <div class="block">Federal tax: {{calculatedData.fedTax}}C$</div>
-        <div class="block">Provincial tax: {{calculatedData.provTax}}C$</div>
-        <div class="block">Total tax: {{calculatedData.totalTax}}C$</div>
-        <div class="block">Average tax rate: {{calculatedData.averageTaxRate}}%</div>
-        <div class="block">After-tax income: {{calculatedData.afterTaxIncome}}C$</div> 
+        <div class="block result">Total annual income: {{calculatedData.totalIncome}}C$</div>
+        <div class="block result">CPP contribution: {{calculatedData.cpp}}C$</div>
+        <div class="block result">EI contribution: {{calculatedData.ei}}C$</div>
+        <div class="block result">Federal tax: {{calculatedData.fedTax}}C$</div>
+        <div class="block result">Provincial tax: {{calculatedData.provTax}}C$</div>
+        <div class="block result">Total tax: {{calculatedData.totalTax}}C$</div>
+        <div class="block result">Average tax rate: {{calculatedData.averageTaxRate}}%</div>
+        <div class="block result">Net income: {{calculatedData.afterTaxIncome}}C$</div> 
     </div>    
 </ng-container>
